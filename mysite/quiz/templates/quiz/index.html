@@ -1,0 +1,10 @@
+{% extends 'quiz/base.html' %}
+
+{% block content %}
+Welcome at the homepage!
+{% if request.session.username %}
+Hi {{ request.session.username }}
+{% else %}
+Hi!
+{% endif %}
+{% endblock content %}

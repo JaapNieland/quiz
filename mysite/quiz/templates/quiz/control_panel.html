@@ -1,0 +1,43 @@
+{% extends 'quiz/base.html' %}
+
+{% block content %}
+
+<table>
+    <tr><th>Question</th><th>Status</th></tr>
+    {% for q in questions %}
+    <tr>
+        <td><a href="{% url 'question_results' q.id %}">{{q.question_text}}</a></td>
+        <td>
+            <div class="custom-control custom-switch">
+                <input type="checkbox"
+                       class="custom-control-input"
+                       id="question_active_switch_{{q.id}}"
+                       question_id="{{q.id}}"
+                       {% if q.active %}checked{% endif %}>
+                <label class="custom-control-label" for="question_active_switch_{{q.id}}"></label>
+            </div>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock content %}
+
+{% block scripting %}
+<script>
+$('.custom-control-input').on('change', function(e) {
+    $.ajax({
+        method: 'POST',
+        url: '/quiz/switch_question_status/',
+        data: {
+            'question_description': e.currentTarget.id,
+            'csrfmiddlewaretoken': '{{ csrf_token }}',
+        },
+        dataType: 'json',
+        success: function(data){
+            console.log(data);
+        }
+    });
+});
+</script>
+{% endblock scripting %}

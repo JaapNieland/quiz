@@ -1,0 +1,19 @@
+{% extends "quiz/base.html" %}
+{% block content %}
+<h1>{{ question.question_text }}</h1>
+<table>
+    <tr><th>Choice</th><th>Votes</th></tr>
+    {% for r in results %}
+    <tr>
+        {% if r.correct %}
+        <td><b>{{r.choice_text}}</b></td>
+        <td><b>{{r.votes}}</b></td>
+        {% else %}
+        <td>{{r.choice_text}}</td>
+        <td>{{r.votes}}</td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock content %}

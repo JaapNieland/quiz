@@ -1,0 +1,2 @@
+# Introduction
+This project contains a Python Django application for running a quiz that has a special feature: questions that follow the ranking the stars concept. For these questions, the correct answer is not predetermined, but rather determined based on which answer is given most often.

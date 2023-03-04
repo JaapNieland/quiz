@@ -1,0 +1,12 @@
+{% extends "quiz/base.html" %}
+{% block content %}
+<table>
+    <tr><th>Player</th><th>Score</th></tr>
+    {% for player in players %}
+    <tr>
+        <td>{{player.username}}</td>
+        <td>{{player.total_score}}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock content %}
