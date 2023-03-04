@@ -23,7 +23,7 @@
       <li>
         <a href="#"><span class="fa fa-user"></span> About</a>
       </li>
-      {% if not request.session.userid %}
+      {% if not request.session.player_id %}
       <li>
         <a href="{% url 'signup' %}"><span class="fa fa-sign-in"></span> Sign in</a>
       </li>
