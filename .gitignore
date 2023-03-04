@@ -1,2 +1,3 @@
 mysite/quiz/migrations/*
 db.sqlite3
+.idea/
