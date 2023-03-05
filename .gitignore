@@ -1,3 +1,9 @@
 mysite/quiz/migrations/*
 db.sqlite3
 .idea/
+*.pyc
+*/bin/*
+*/lib/*
+*/venv/*
+*.swp
+*.cfg
