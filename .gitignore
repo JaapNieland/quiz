@@ -7,3 +7,5 @@ db.sqlite3
 */venv/*
 *.swp
 *.cfg
+*/__pycache__/*
+*.pyc
