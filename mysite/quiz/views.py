@@ -1,4 +1,4 @@
-from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect, Http404
 from django.shortcuts import get_object_or_404, get_list_or_404, render, redirect
 from django.db.models import Count
 from django.contrib.admin.views.decorators import staff_member_required
@@ -60,43 +60,28 @@ def signoff(request):
 
 
 def detail_next_question(request):
+    """
+    This function first checks if there is a registered player on the other end. If that is satisfied, the player is
+    served the next question that is active. If no player is registered, a redirect to the signup page is served
+    """
+    # Check if player is registered
     if 'player_id' in request.session:
+        # Identity the current player.
         user_id = request.session['player_id']
-
-        question = Question.objects.filter(active=True).first()
-        choices = get_list_or_404(Choice)
         player = Player.objects.get(id=user_id)
+
+        # Identify the next active question
+        question = Question.objects.filter(active=True).first()
+        if question is None:
+            # When no question is active, the a 404 is served
+            return Http404('No active question found.')
+        choices = get_list_or_404(Choice, question=question)
 
         prev_choice = Response.objects.filter(question=question, player=player).first()
         return render(request, 'quiz/detail.html',
                       {'question': question,
                        'choices': choices,
                        'prev_choice': prev_choice})
-    else:
-        return HttpResponseRedirect('/quiz/signup')
-
-
-def detail(request, question_id):
-    """
-    Here we render the actual question. If the user already voted on this question, it is also shown which option they
-    voted for. Resending the form is permitted to allow for altering the answer. The actual voting is processed by the
-    function 'vote'
-    :param request:
-    :param question_id:
-    :return:
-    """
-
-    if 'player_id' in request.session:
-        user_id = request.session['player_id']
-
-        question = get_object_or_404(Question, pk=question_id)
-        choices = get_list_or_404(Choice)
-        player = Player.objects.get(id=user_id)
-
-        prev_choice = Response.objects.filter(question=question, player=player).first()
-        return render(request, 'quiz/detail.html', {'question': question,
-                                                    'choices': choices,
-                                                    'prev_choice': prev_choice})
     else:
         return HttpResponseRedirect('/quiz/signup')
 
