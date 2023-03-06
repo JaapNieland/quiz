@@ -126,6 +126,7 @@ def question_results(request, question_id):
     return render(request, 'quiz/results.html', {'results': result, 'question': question})
 
 
+@staff_member_required
 def score_board(request):
     """
     This function returns an overview of the score board, showing for every player how many points they have, ranked

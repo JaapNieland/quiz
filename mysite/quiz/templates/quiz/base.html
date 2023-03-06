@@ -35,7 +35,7 @@
         <a href="{% url 'signoff' %}"><span class="fa fa-sign-out"></span> Sign out</a>
       </li>
       {% endif %}
-      {% if perms.quiz %}
+      {% if user.is_staff %}
       <li>
         <a href="{% url 'score_board' %}"><span class="fa fa-bar-chart"></span> Score</a>
       </li>
