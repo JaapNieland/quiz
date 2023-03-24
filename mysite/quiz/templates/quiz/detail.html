@@ -20,3 +20,29 @@ Hi {{ request.session.username}}!
 </form>
 
 {% endblock content %}
+
+{% block scripting %}
+<script>
+// Store the question id in a variable
+let q_id = {{question.id}};
+
+// function that polls the server every 5 seconds and reloads page if a new question is active
+function refresh() {
+    // load latest question id
+    $.get("/quiz/current_active_question/", function(data){
+
+        // check if still up to date
+        if (data != q_id){
+            // if not up to date, reload page
+            window.location.reload()
+      }
+    });
+    // wait 5 seconds
+    setTimeout(refresh, 5000);
+}
+
+// initial call, or just call refresh directly
+setTimeout(refresh, 5000);
+</script>
+
+{% endblock scripting %}

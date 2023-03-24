@@ -13,5 +13,6 @@ urlpatterns = [
     path('score_board/', views.score_board, name='score_board'),
     path('results/<int:question_id>', views.question_results, name='question_results'),
     path('control_panel/', views.control_panel, name='control_panel'),
-    path('switch_question_status/', views.switch_question_status, name='switch_question_status')
+    path('switch_question_status/', views.switch_question_status, name='switch_question_status'),
+    path('current_active_question/', views.currently_active_question, name='current_active_question')
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

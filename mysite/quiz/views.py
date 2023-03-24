@@ -169,3 +169,10 @@ def switch_question_status(request):
 
     else:
         return HttpResponseBadRequest
+
+
+def currently_active_question(request):
+    question = Question.objects.filter(active=True).first()
+    return(HttpResponse(question.id))
+
+
