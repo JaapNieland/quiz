@@ -2,7 +2,7 @@ from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedire
 from django.shortcuts import get_object_or_404, get_list_or_404, render, redirect
 from django.db.models import Count
 from django.contrib.admin.views.decorators import staff_member_required
-
+from django.urls import reverse
 from .models import Question, Choice, Response, Player
 
 
@@ -83,7 +83,7 @@ def detail_next_question(request):
                        'choices': choices,
                        'prev_choice': prev_choice})
     else:
-        return HttpResponseRedirect('/quiz/signup')
+        return HttpResponseRedirect(reverse('signup'))
 
 
 def vote(request, question_id):
@@ -107,7 +107,7 @@ def vote(request, question_id):
     print(request.session)
 
     print(choice)
-    return HttpResponseRedirect('/quiz/detail')
+    return HttpResponseRedirect(reverse('next_question'))
 
 
 def question_results(request, question_id):

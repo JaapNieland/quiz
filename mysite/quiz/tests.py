@@ -1,6 +1,7 @@
 from django.test import TestCase
+from django.shortcuts import reverse
 
-from.models import Player, Question, Response, Choice
+from .models import Player, Question, Response, Choice
 
 # Create your tests here.
 
@@ -109,4 +110,25 @@ class QuestionModelTests(TestCase):
         answer1 = Response(player=player1, question=question, choice=choice1)      # P1 answers choice
         answer1.save()                                                              # Save to DB
         player1.update_total_score()
-        assert(player1.total_score==1)
+        assert(player1.total_score == 1)
+
+class UrlTests(TestCase):
+    def test_response(self):
+        # test urls that accept get and don't need additional parameters
+        urls = ['index',
+                'next_question',
+                'signup',
+                'signoff',
+                'score_board',
+                'control_panel',
+                # pages that need additional stuff to request, no test for now
+                #'vote',
+                #'question_results',
+                #'switch_question',
+                #'current_active_question'
+        ]
+
+        for url in urls:
+            page = self.client.get(reverse(url))
+            assert (page.status_code in [200, 302])
+

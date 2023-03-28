@@ -29,7 +29,7 @@ let q_id = {{question.id}};
 // function that polls the server every 5 seconds and reloads page if a new question is active
 function refresh() {
     // load latest question id
-    $.get("/quiz/current_active_question/", function(data){
+    $.get("{% url 'current_active_question' %}", function(data){
 
         // check if still up to date
         if (data != q_id){
