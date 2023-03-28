@@ -28,7 +28,7 @@
 $('.custom-control-input').on('change', function(e) {
     $.ajax({
         method: 'POST',
-        url: '/quiz/switch_question_status/',
+        url: '{%url "switch_question_status" %}',
         data: {
             'question_description': e.currentTarget.id,
             'csrfmiddlewaretoken': '{{ csrf_token }}',
