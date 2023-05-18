@@ -10,7 +10,7 @@
 <script>
 
 // set the dimensions and margins of the graph
-const margin = {top: 10, right: 30, bottom: 40, left: 100},
+const margin = {top: 10, right: 30, bottom: 40, left: 200},
     width = 800 - margin.left - margin.right,
     height = 450 - margin.top - margin.bottom;
 
@@ -42,7 +42,7 @@ data.sort(function(b, a) {
 
 // Add X axis
 const x = d3.scaleLinear()
-  .domain([0, 4])
+  .domain([0, {{max_score}}])
   .range([ 0, width]);
 svg.append("g")
   .attr("transform", `translate(0, ${height})`)

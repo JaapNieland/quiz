@@ -1,6 +1,6 @@
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect, Http404
 from django.shortcuts import get_object_or_404, get_list_or_404, render, redirect
-from django.db.models import Count
+from django.db.models import Count, Max
 from django.contrib.admin.views.decorators import staff_member_required
 from django.urls import reverse
 from .models import Question, Choice, Response, Player
@@ -110,7 +110,12 @@ def vote(request, question_id):
     return HttpResponseRedirect(reverse('next_question'))
 
 
-def question_results(request, question_id):
+def active_question_results(request):
+    question = Question.objects.filter(active=True).first()
+    return specific_question_results(request, question.id)
+
+
+def specific_question_results(request, question_id):
     """
     This function returns the votes cast, inlcuding the correct one
     :param request:
@@ -122,8 +127,13 @@ def question_results(request, question_id):
 
     result = Choice.objects.filter(question=question_id) \
         .annotate(votes=Count('response'))
-
-    return render(request, 'quiz/results.html', {'results': result, 'question': question})
+    max_score = result.aggregate(Max('votes'))['votes__max']
+    return render(request, 'quiz/results.html',
+                  {'results': result,
+                   'question': question,
+                   'max_score': max_score
+                   },
+            )
 
 
 @staff_member_required
