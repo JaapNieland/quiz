@@ -6,7 +6,7 @@ Hi {{ request.session.username}}!
 <form action="{% url 'vote' question.id %}" method="post">
 {% csrf_token %}
 <fieldset>
-    <legend><h1>{{ question.question_text }}</h1></legend>
+    <legend><h3>{{ question.question_text }}</h3></legend>
     {% if prev_choice %}
     <p>You previously voted {{prev_choice.choice.choice_text}}, care to update?</p>
     {% endif %}
