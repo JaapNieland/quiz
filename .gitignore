@@ -9,3 +9,4 @@ db.sqlite3
 *.cfg
 */__pycache__/*
 *.pyc
+*.csv
