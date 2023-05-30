@@ -39,6 +39,34 @@ def signup(request):
     else:
         return render(request, 'quiz/signup.html')
 
+@staff_member_required
+def create_new_question(request):
+    """
+    This function builds the page for inserting new questions. A new question is created and the submitted answer
+    options (splitted by a new line) are added as options to that question.
+    """
+
+    # In case a post request is send, a question is submitted
+    if request.method == 'POST':
+
+        # Extract the content of the submitted form
+        question_text = request.POST['question_text']
+        choices = request.POST['choices']
+
+        # Create a new question
+        q = Question(question_text=question_text, active=True)
+        q.save()
+
+        # Split the submitted choices and connect to the submitted question
+        for choice_text in choices.split('\n'):
+            # Insert choice to every question
+            choice = Choice(choice_text=choice_text,
+                            question=q)
+            choice.save()
+
+    # Render the form
+    return render(request, 'quiz/new_question.html')
+
 
 def signoff(request):
     """

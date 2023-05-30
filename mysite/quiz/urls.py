@@ -15,5 +15,6 @@ urlpatterns = [
     path('results/', views.active_question_results),
     path('control_panel/', views.control_panel, name='control_panel'),
     path('switch_question_status/', views.switch_question_status, name='switch_question_status'),
-    path('current_active_question/', views.currently_active_question, name='current_active_question')
+    path('current_active_question/', views.currently_active_question, name='current_active_question'),
+    path('new_question/', views.create_new_question, name='new_question')
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
