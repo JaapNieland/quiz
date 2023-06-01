@@ -26,10 +26,10 @@
       </li>
       {% else %}
       <li>
-        <a href="{% url 'next_question' %}"><span class="fa fa-chevron-right"></span> Next Q</a>
+        <a href="{% url 'next_question' %}"><span class="fa fa-chevron-right"></span> Question</a>
       </li>
       <li>
-        <a href="{% url 'signoff' %}"><span class="fa fa-sign-out"></span> Sign out</a>
+        <a href="{% url 'signoff' %}"><span class="fa fa-sign-out"></span> Log uit</a>
       </li>
       {% endif %}
       {% if user.is_staff %}

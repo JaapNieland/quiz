@@ -1,10 +1,10 @@
 {% extends 'quiz/base.html' %}
 
 {% block content %}
-Welcome at the homepage!
+Welkom bij de Ranking Quiz!
 {% if request.session.username %}
 Hi {{ request.session.username }}
 {% else %}
-If you want to play along, please sign up
+Om mee te doen, ga naar sign up.
 {% endif %}
 {% endblock content %}
